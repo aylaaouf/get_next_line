@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 19:24:26 by aylaaouf          #+#    #+#             */
-/*   Updated: 2024/12/13 06:21:24 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2024/12/13 10:08:14 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <stddef.h>
 
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 42
@@ -25,5 +26,8 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
+char    *read_buffer(int fd, char *buffer);
+char    *get_line(char *buffer);
+char    *update_buffer(char *buffer);
 
 #endif

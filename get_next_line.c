@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 02:46:59 by aylaaouf          #+#    #+#             */
-/*   Updated: 2024/12/13 07:16:12 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2024/12/13 09:48:59 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ char    *read_buffer(int fd, char *buffer)
         return (NULL);
     }
     temp_buffer[bytes_read] = '\0';
+    if (!buffer)
+        buffer = ft_strdup("");
     if (bytes_read == 0)
     {
         free(temp_buffer);
@@ -52,9 +54,28 @@ char    *get_line(char *buffer)
         return (NULL);
     i = 0;
     while (i < len)
-        line[i++] = buffer[i++];
+    {
+        line[i] = buffer[i];
+        i++;
+    }
     line[len] = '\0';
     return (line);
+}
+
+char    *update_buffer(char *buffer)
+{
+    char    *new_buffer;
+    char    *new_line_pos;
+
+    new_line_pos = ft_strchr(buffer, '\n');
+    if (!new_line_pos)
+    {
+        free(buffer);
+        return (NULL);
+    }
+    new_buffer = ft_strdup(new_line_pos + 1);
+    free(buffer);
+    return (new_buffer);
 }
 
 char    *get_next_line(int fd)
@@ -69,8 +90,6 @@ char    *get_next_line(int fd)
     if (!buffer)
         return (NULL);
     line = get_line(buffer);
-    if (!buffer)
-        return (NULL);
     buffer = update_buffer(buffer);
     return (line);
 }
