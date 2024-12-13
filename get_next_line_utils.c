@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 19:23:40 by aylaaouf          #+#    #+#             */
-/*   Updated: 2024/12/13 06:21:05 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2024/12/13 10:22:13 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,18 @@ char	*ft_strdup(const char *s1)
 {
 	char	*ptr;
 	int		len;
+	int		i;
 
 	len = ft_strlen(s1);
 	ptr = (char *)malloc(len + 1);
 	if (!ptr)
 		return (NULL);
-	ft_memcpy(ptr, s1, len);
+	i = 0;
+	while (i < len)
+	{
+		ptr[i] = s1[i];
+		i++;
+	}
 	ptr[len] = '\0';
 	return (ptr);
 }

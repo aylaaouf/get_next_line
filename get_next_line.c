@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 02:46:59 by aylaaouf          #+#    #+#             */
-/*   Updated: 2024/12/13 09:48:59 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2024/12/13 10:14:59 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char    *get_line(char *buffer)
     char    *line;
     char    *new_line_pos;
     size_t  len;
-    int     i;
+    size_t     i;
 
     new_line_pos = ft_strchr(buffer, '\n');
     if (new_line_pos)
