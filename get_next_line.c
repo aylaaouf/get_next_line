@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 02:46:59 by aylaaouf          #+#    #+#             */
-/*   Updated: 2024/12/13 10:14:59 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2024/12/13 16:34:17 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ char	*read_buffer(int fd, char *buffer)
 {
 	char	*temp_buffer;
 	int		bytes_read;
+	char		*new_buffer;
 
-	temp_buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	temp_buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!temp_buffer)
+		return (NULL);
 	bytes_read = read(fd, temp_buffer, BUFFER_SIZE);
 	if (bytes_read < 0)
 	{
@@ -27,14 +30,13 @@ char	*read_buffer(int fd, char *buffer)
 	temp_buffer[bytes_read] = '\0';
 	if (!buffer)
 		buffer = ft_strdup("");
-	if (bytes_read == 0)
+	if (bytes_read > 0)
 	{
-		free(temp_buffer);
-		return (buffer);
+		new_buffer = ft_strjoin(buffer, temp_buffer);
+		free(buffer);
 	}
-	buffer = ft_strjoin(buffer, temp_buffer);
 	free(temp_buffer);
-	return (buffer);
+	return (new_buffer);
 }
 
 char	*get_line(char *buffer)
@@ -44,9 +46,11 @@ char	*get_line(char *buffer)
 	size_t	len;
 	size_t	i;
 
+	if (!buffer || !*buffer)
+		return (NULL);
 	new_line_pos = ft_strchr(buffer, '\n');
 	if (new_line_pos)
-		len = new_line_pos - buffer;
+		len = new_line_pos - buffer + 1;
 	else
 		len = ft_strlen(buffer);
 	line = malloc(sizeof(char) * (len + 1));
@@ -70,11 +74,9 @@ char	*update_buffer(char *buffer)
 	new_line_pos = ft_strchr(buffer, '\n');
 	if (!new_line_pos)
 	{
-		free(buffer);
 		return (NULL);
 	}
 	new_buffer = ft_strdup(new_line_pos + 1);
-	free(buffer);
 	return (new_buffer);
 }
 
@@ -89,6 +91,8 @@ char	*get_next_line(int fd)
 	if (!buffer)
 		return (NULL);
 	line = get_line(buffer);
+	if (!line)
+		return (NULL);
 	buffer = update_buffer(buffer);
 	return (line);
 }
