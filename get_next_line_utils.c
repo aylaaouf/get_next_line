@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 19:23:40 by aylaaouf          #+#    #+#             */
-/*   Updated: 2024/12/14 19:08:34 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2024/12/14 23:53:55 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	*ft_strchr(char *s, int c)
 
 	if (!s)
 	{
+		free(s);
 		return (NULL);
 	}
 	i = 0;
@@ -70,17 +71,14 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	len = ft_strlen(s1) + ft_strlen(s2);
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
-		return (NULL);
+		return (free(str), NULL);
 	while (s1[i])
-	{
 		str[j++] = s1[i++];
-	}
 	i = 0;
 	while (s2[i])
-	{
 		str[j++] = s2[i++];
-	}
 	str[j] = '\0';
+	free((void *)s1);
 	return (str);
 }
 

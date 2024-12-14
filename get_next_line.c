@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 02:46:59 by aylaaouf          #+#    #+#             */
-/*   Updated: 2024/12/14 18:37:27 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2024/12/14 23:57:52 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ char	*read_buffer(int fd, char *buffer)
 
 	temp_buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!temp_buffer)
-		return (NULL);
-
+		return (free(buffer), NULL);
 	bytes_read = 1;
 	while (!ft_strchr(buffer, '\n') && bytes_read != 0)
 	{
@@ -32,6 +31,11 @@ char	*read_buffer(int fd, char *buffer)
 		}
 		temp_buffer[bytes_read] = '\0';
 		buffer = ft_strjoin(buffer, temp_buffer);
+		if (!buffer)
+		{
+			free(temp_buffer);
+			return (NULL);
+		}
 	}
 	free(temp_buffer);
 	return (buffer);
@@ -53,7 +57,7 @@ char	*get_line(char *buffer)
 		len = ft_strlen(buffer);
 	line = malloc(sizeof(char) * (len + 1));
 	if (!line)
-		return (NULL);
+		return (free(line), NULL);
 	i = 0;
 	while (i < len)
 	{
@@ -75,6 +79,7 @@ char	*update_buffer(char *buffer)
 	new_buffer = ft_strdup(new_line_pos + 1);
 	if (!new_buffer)
 		return (NULL);
+	free(buffer);
 	return (new_buffer);
 }
 
@@ -99,13 +104,10 @@ char	*get_next_line(int fd)
 	new_buffer = update_buffer(buffer);
 	if (!new_buffer)
 	{
-		free(buffer);
+		return (NULL);
 		buffer = NULL;
 	}
 	else
-	{
-		free(buffer);
 		buffer = new_buffer;
-	}
 	return (line);
 }
