@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 19:24:26 by aylaaouf          #+#    #+#             */
-/*   Updated: 2024/12/14 19:12:20 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2024/12/14 22:47:04 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ char	*ft_strchr(char *s, int c);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
-//char	*read_buffer(int fd, char *buffer);
-//char	*get_line(char *buffer);
-//char	*update_buffer(char *buffer);
+char	*read_buffer(int fd, char *buffer);
+char	*get_line(char *buffer);
+char	*update_buffer(char *buffer);
 
 #endif
