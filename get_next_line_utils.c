@@ -6,16 +6,20 @@
 /*   By: aylaaouf <aylaaouf@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 19:23:40 by aylaaouf          #+#    #+#             */
-/*   Updated: 2024/12/13 12:37:13 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2024/12/14 19:08:34 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
 	unsigned int	i;
 
+	if (!s)
+	{
+		return (NULL);
+	}
 	i = 0;
 	while (s[i])
 	{
@@ -57,8 +61,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	len;
 	char	*str;
 
-	if (!s1 || !s2)
-		return (NULL);
+	if (!s1)
+		s1 = ft_strdup("");
+	if (!s2)
+		s2 = ft_strdup("");
 	i = 0;
 	j = 0;
 	len = ft_strlen(s1) + ft_strlen(s2);
