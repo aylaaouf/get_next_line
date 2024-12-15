@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aylaaouf <aylaaouf@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 02:46:59 by aylaaouf          #+#    #+#             */
-/*   Updated: 2024/12/15 23:02:53 by aylaaouf         ###   ########.fr       */
+/*   Created: 2024/12/15 20:47:50 by aylaaouf          #+#    #+#             */
+/*   Updated: 2024/12/15 23:03:25 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*read_buffer(int fd, char *buffer)
 {
@@ -85,29 +85,29 @@ static char	*update_buffer(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	*buffer[1337];
 	char		*line;
 	char		*new_buffer;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = read_buffer(fd, buffer);
-	if (!buffer)
+	buffer[fd] = read_buffer(fd, buffer[fd]);
+	if (!buffer[fd])
 		return (NULL);
-	line = get_line(buffer);
+	line = get_line(buffer[fd]);
 	if (!line)
 	{
-		free(buffer);
-		buffer = NULL;
+		free(buffer[fd]);
+		buffer[fd] = NULL;
 		return (NULL);
 	}
-	new_buffer = update_buffer(buffer);
+	new_buffer = update_buffer(buffer[fd]);
 	if (!new_buffer)
 	{
 		return (NULL);
-		buffer = NULL;
+		buffer[fd] = NULL;
 	}
 	else
-		buffer = new_buffer;
+		buffer[fd] = new_buffer;
 	return (line);
 }
